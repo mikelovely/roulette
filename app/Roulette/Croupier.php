@@ -8,16 +8,14 @@ class Croupier
 {
     public function spin()
     {
-        $result = Wheel::getNumber();
-
-        $this->handleResult($result);
+        return Wheel::getNumber();
     }
 
-    public function handleResult($result)
+    public function handleResult($number, $bets)
     {
-        // take the result of the spin
+        // take the result of the spin ($number)
 
-        // get the bets from the players
+        // get the bets from the players ($bets)
 
         // dole out winnings if any
     }

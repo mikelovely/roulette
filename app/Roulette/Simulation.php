@@ -29,13 +29,16 @@ class Simulation
         $players = true;
 
         do {
-            $this->croupier->spin();
+            $bets = [];
             foreach ($this->players as $player) {
                 if ($player->isActive()) {
+                    $bets[] = $player->makeBet();
                     break; // break out of the foreach loop because there is still an active player
                 }
                 $players = false;
             }
+            $number = $this->croupier->spin();
+            $this->croupier->handleResults($number, $bets);
         } while ($players);
     }
 }
