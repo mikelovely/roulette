@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Roulette\Models\Player;
 use Roulette\Roulette\Croupier;
 use Roulette\Roulette\Simulation;
+use Roulette\Roulette\Table;
 
 class SimulationController
 {
@@ -20,10 +21,10 @@ class SimulationController
         $players = [];
 
         $player = new Player();
-        $player->setInitialStake(100);
-        $player->setStrategy( /* set a strategy here */ );
-        $player->setPace( /* set a pace/level-of-aggression here */ );
-        $players[$player];
+        $player->setStake(100);
+        $player->setStrategy('basic');
+        // $player->setPace('adventurous'); // cautious, balanced, adventurous
+        $players[] = $player;
 
         /* add more players */
 
@@ -38,7 +39,5 @@ class SimulationController
         $simulation->run();
 
         // ---------------------------- //
-
-        var_dump($simulation->results());
     }
 }

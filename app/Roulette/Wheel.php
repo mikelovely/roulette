@@ -44,14 +44,8 @@ class Wheel
         36 => ['colour' => 'red'],
     ];
 
-    public function __construct()
-    {
-
-    }
-
     public static function getNumber()
     {
-        // return a random number from list of possible roulette outcomes
         return array_rand(self::number);
     }
 }
