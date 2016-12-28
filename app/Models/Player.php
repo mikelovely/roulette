@@ -2,7 +2,7 @@
 
 namespace Roulette\Models;
 
-use Roulette\Models\Bet;
+use Roulette\Roulette\Bet;
 
 class Player
 {

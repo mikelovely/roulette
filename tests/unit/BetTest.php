@@ -8,7 +8,7 @@ class BetTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->amount = 70;
-        $this->bet = new \Roulette\Models\Bet($this->amount);
+        $this->bet = new \Roulette\Roulette\Bet($this->amount);
     }
 
     /** @test */
@@ -17,7 +17,7 @@ class BetTest extends \PHPUnit_Framework_TestCase
         $value = 0;
 
         foreach ($this->bet->basic() as $key => $array) {
-            $value += $array["coverage"];
+            $value += $array["amount"];
         }
 
         $this->assertEquals($this->amount, $value);
