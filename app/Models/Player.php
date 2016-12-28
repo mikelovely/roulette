@@ -2,7 +2,7 @@
 
 namespace Roulette\Models;
 
-use Roulette\Roulette\Bet;
+use Roulette\Models\Bet;
 
 class Player
 {
@@ -14,13 +14,16 @@ class Player
     private $active;
     private $id;
 
-    public function __construct()
+    public function __construct($strategy, $amount)
     {
         $this->active = false;
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
+
+        $this->setStrategy($strategy);
+        $this->setStake($amount);
     }
 
-    public function setStrategy($strategy)
+    private function setStrategy($strategy)
     {
         $class = "Roulette\\Models\\Strategies\\" . ucfirst($strategy);
         $this->strategy = new $class();
@@ -41,7 +44,7 @@ class Player
         $this->pace = $pace;
     }
 
-    public function setStake($amount)
+    private function setStake($amount)
     {
         if ($amount > 0) {
             $this->active = true;
@@ -78,16 +81,8 @@ class Player
 
         $this->updateStake(-5);
 
-        return [
-            0 => [
-                'coverage' => 0.5,
-                'number' => 7,
-            ],
-            1 => [
-                'coverage' => 0.5,
-                'number' => 8,
-            ],
-        ];
+        $bet = new Bet(10);
+        return $bet->basic();
     }
 
     public function isActive()

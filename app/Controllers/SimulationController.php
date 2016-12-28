@@ -17,12 +17,11 @@ class SimulationController
         $croupier = new Croupier();
 
         // ---------------------------- //
+        // add players to the game
 
         $players = [];
 
-        $player = new Player();
-        $player->setStake(100);
-        $player->setStrategy('basic');
+        $player = new Player('basic', 100);
         // $player->setPace('adventurous'); // cautious, balanced, adventurous
         $players[] = $player;
 
