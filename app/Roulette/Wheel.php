@@ -46,6 +46,6 @@ class Wheel
 
     public static function getNumber()
     {
-        return array_rand(self::number);
+        return array_rand(self::$number);
     }
 }

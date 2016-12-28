@@ -15,6 +15,7 @@ class SimulationController
     {
         // to begin the simulation you need the following;
         $croupier = new Croupier();
+        // get a croupier
 
         // ---------------------------- //
         // add players to the game
@@ -28,11 +29,13 @@ class SimulationController
         /* add more players */
 
         // ---------------------------- //
+        // add the table
 
         $table = new Table();
         $table->collateBets();
 
         // ---------------------------- //
+        // run the simulation
 
         $simulation = new Simulation($croupier, $table, $players);
         $simulation->run();

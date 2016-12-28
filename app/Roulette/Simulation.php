@@ -27,7 +27,11 @@ class Simulation
     public function run()
     {
         do {
+
             $continue = false;
+
+            // do this each round to determine who is still able to play
+            // (which players still have money)
             foreach ($this->players as $player) {
                 if ($player->isActive()) {
                     $continue = true;
@@ -35,19 +39,23 @@ class Simulation
                 }
             }
 
-            // var_dump($continue);
-
             $bets = [];
 
             if ($continue) {
+                // on every round, each player in the game places a bet
                 foreach ($this->players as $player) {
                     $bets[$player->getId()] = $player->makeBet();
-                    var_dump($player->getStake());
                 }
             }
 
-            // $number = $this->croupier->spin();
-            // $this->croupier->handleResults($number, $bets);
+            var_dump($bets);
+            exit;
+
+            // number returned from a spin of the wheel
+            $number = $this->croupier->spin();
+            
+            // bets are handled by the croupier along with the number spun
+            $this->croupier->handleResult($number, $bets);
         } while ($continue);
 
         exit;
