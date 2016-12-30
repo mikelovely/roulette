@@ -11,13 +11,11 @@ class Player
     private $pace;
     private $preference;
     private $bets;
-    private $active;
     public $stack;
     private $id;
 
     public function __construct($strategy, $amount)
     {
-        $this->active = false;
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
 
         $this->setStrategy($strategy);
@@ -77,6 +75,6 @@ class Player
             return false;
         }
 
-        return $this->active;
+        return true;
     }
 }
