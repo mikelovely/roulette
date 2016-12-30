@@ -3,6 +3,7 @@
 namespace Roulette\Models;
 
 use Roulette\Roulette\Bet;
+use Roulette\Roulette\Stack;
 
 class Player
 {
@@ -10,8 +11,8 @@ class Player
     private $pace;
     private $preference;
     private $bets;
-    private $stake;
     private $active;
+    public $stack;
     private $id;
 
     public function __construct($strategy, $amount)
@@ -20,7 +21,8 @@ class Player
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
 
         $this->setStrategy($strategy);
-        $this->setStake($amount);
+
+        $this->stack = new Stack($amount);
     }
 
     private function setStrategy($strategy)
@@ -44,30 +46,6 @@ class Player
         $this->pace = $pace;
     }
 
-    private function setStake($amount)
-    {
-        if ($amount > 0) {
-            $this->active = true;
-        }
-
-        $this->stake = $amount;
-    }
-
-    public function updateStake($amount)
-    {
-        $this->stake = ($this->stake + ($amount));
-
-        // player is not active if they have no money left
-        if ($this->stake == 0) {
-            $this->active = false;
-        }
-    }
-
-    public function getStake()
-    {
-        return $this->stake;
-    }
-
     public function leaveTable()
     {
         // stop the simulation if not yet out of money.
@@ -79,7 +57,7 @@ class Player
         // and the strategy they are using
         // and the pace they are playing
 
-        $this->updateStake(-5);
+        $bet = new Bet($this->stack->getLargeAmount());
 
         $bet = new Bet(10);
         return $bet->basic();
@@ -87,9 +65,16 @@ class Player
 
     public function isActive()
     {   
-        // this shouldn't happen - so force player to be inactive.
-        if ($this->stake == 0 && $this->active == true) {
-            $this->active = false;
+        if ($this->stack->getRemainingStack() >= $this->stack->getInitialStack() * 10) {
+            var_dump("player wins big!");
+            var_dump($this->stack->getRemainingStack());
+            return false;
+        }
+
+        if ($this->stack->getRemainingStack() <= 0) {
+            var_dump("house wins, sorry buddy.");
+            var_dump($this->stack->getRemainingStack());
+            return false;
         }
 
         return $this->active;
