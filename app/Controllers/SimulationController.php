@@ -22,10 +22,7 @@ class SimulationController
 
         $players = [];
 
-        $player = new Player('martingale', 100);
-        
-        // $player->setPace('adventurous'); // cautious, balanced, adventurous
-        $players[] = $player;
+        $players[] = new Player('none', 100, 'cautious');
 
         /* add more players */
 

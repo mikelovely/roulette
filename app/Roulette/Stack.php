@@ -23,35 +23,13 @@ class Stack
         return $this->remaining_stack;
     }
 
-    public function getSmallAmount()
+    public function getAmount($style)
     {
-        $amount = (float) round(($this->initial_stack / 100) * rand(5, 20));
-
-        if ($amount > $this->getRemainingStack()) {
-            $amount = $this->getRemainingStack();
+        if ($style->getName() == "aggressive") {
+            $amount = (float) round(($this->initial_stack / 100) * rand(25, 40));
+        } elseif ($style->getName() == "cautious") {
+            $amount = (float) round(($this->initial_stack / 100) * rand(5, 20));
         }
-
-        $this->updateRemainingStack($amount);
-
-        return $amount;
-    }
-
-    public function getMediumAmount()
-    {
-        $amount = (float) round(($this->initial_stack / 100) * rand(15, 30));
-        
-        if ($amount > $this->getRemainingStack()) {
-            $amount = $this->getRemainingStack();
-        }
-
-        $this->updateRemainingStack($amount);
-
-        return $amount;
-    }
-
-    public function getLargeAmount()
-    {
-        $amount = (float) round(($this->initial_stack / 100) * rand(25, 40));
 
         if ($amount > $this->getRemainingStack()) {
             $amount = $this->getRemainingStack();

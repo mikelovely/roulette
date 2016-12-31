@@ -8,22 +8,22 @@ use Roulette\Roulette\Stack;
 class Player
 {
     private $strategy;
-    private $pace;
-    private $preference;
-    private $bets;
+    private $style;
     public $stack;
     private $id;
     private $player_won_on_previous_round;
     public $current_bet;
     public $last_bet;
 
-    public function __construct($strategy, $amount)
+    public function __construct($strategy, $amount, $style)
     {
         $this->player_won_on_previous_round = false;
 
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
 
         $this->setStrategy($strategy);
+
+        $this->setStyle($style);
 
         $this->stack = new Stack($amount);
 
@@ -46,14 +46,10 @@ class Player
         return $this->strategy;
     }
 
-    public function setPace($pace)
+    public function setStyle($style)
     {
-        $this->pace = $pace;
-    }
-
-    public function leaveTable()
-    {
-        // stop the simulation if not yet out of money.
+        $class = "Roulette\\Styles\\" . ucfirst($style);
+        $this->style = new $class();
     }
 
     public function getLastBet()
@@ -76,7 +72,7 @@ class Player
         
         $this->first_go = false;
 
-        $this->current_bet = new \Roulette\Bets\Odds($this->stack->getLargeAmount());
+        $this->current_bet = new \Roulette\Bets\StraightUp($this->stack->getAmount($this->style));
 
         $this->setLastBet($this->current_bet);
     }
