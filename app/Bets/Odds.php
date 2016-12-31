@@ -6,11 +6,16 @@ use Roulette\Bets\Bet;
 
 class Odds extends Bet
 {
-    public $amount;
+    private $amount;
 
     public function __construct($amount)
     {
         $this->amount = $amount;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
     }
 
     public function getBetData()
