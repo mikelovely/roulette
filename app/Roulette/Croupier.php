@@ -19,11 +19,12 @@ class Croupier
 
             foreach ($player->current_bet->getBetData() as $bet_data) {
 
-                echo "remaining amount = " . $player->stack->getRemainingStack() . "\n";
+                echo "player bet - " . $bet_data['amount'] . ". remaining amount - " . $player->stack->getRemainingStack() . "\n";
 
                 if ($bet_data['bet_type'] == 'odds') {
                     if (in_array($spin_result['value'], Wheel::getOddNumbers())) {
                         $player_round_win_status = true;
+                        echo "player wins! - " . $bet_data['potential_win'] . "\n";
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }
                 }

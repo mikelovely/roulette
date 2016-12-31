@@ -32,7 +32,7 @@ class Stack
         }
 
         $this->updateRemainingStack($amount);
-        
+
         return $amount;
     }
 
@@ -76,8 +76,6 @@ class Stack
         }
 
         $this->updateRemainingStack($amount_doubled);
-
-        echo "doubling amount = " . $amount_doubled . "\n";
 
         return $amount_doubled;
     }

@@ -32,7 +32,7 @@ class Player
 
     private function setStrategy($strategy)
     {
-        $class = "Roulette\\Models\\Strategies\\" . ucfirst($strategy);
+        $class = "Roulette\\Strategies\\" . ucfirst($strategy);
         $this->strategy = new $class();
     }
 

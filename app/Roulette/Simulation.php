@@ -39,23 +39,18 @@ class Simulation
                 }
             }
 
-            $bets = [];
-
             if ($continue) {
                 // on every round, each player in the game places a bet
                 foreach ($this->players as $player) {
-                    $bets[$player->getId()] = $player->makeBet();
+                    $player->makeBet();
                 }
+
+                // number returned from a spin of the wheel
+                $spin_result = $this->croupier->spin();
+
+                // bets are handled by the croupier along with the number spun
+                $this->croupier->handleResult($spin_result, $this->players);
             }
-
-            var_dump($bets);
-            exit;
-
-            // number returned from a spin of the wheel
-            $number = $this->croupier->spin();
-            
-            // bets are handled by the croupier along with the number spun
-            $this->croupier->handleResult($number, $bets);
         } while ($continue);
 
         exit;
