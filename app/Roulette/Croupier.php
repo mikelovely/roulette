@@ -29,9 +29,19 @@ class Croupier
                     }
                 }
 
+                if ($bet_data['bet_type'] == 'straight_up') {
+                    if ($spin_result['value'] == $bet_data['number']) {
+                        $player_round_win_status = true;
+                        echo "player wins! - " . $bet_data['potential_win'] . "\n";
+                        $player->stack->addToRemainingStack($bet_data['potential_win']);
+                    }
+                }
+
                 $player->playerWonOnPreviousRound($player_round_win_status);
 
             }
+
+            echo "\n\n";
         }
     }
 }
