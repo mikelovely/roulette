@@ -13,14 +13,21 @@ class Player
     private $bets;
     public $stack;
     private $id;
+    private $player_won_on_previous_round;
+    public $current_bet;
+    public $last_bet;
 
     public function __construct($strategy, $amount)
     {
+        $this->player_won_on_previous_round = false;
+
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
 
         $this->setStrategy($strategy);
 
         $this->stack = new Stack($amount);
+
+        $this->first_go = true;
     }
 
     private function setStrategy($strategy)
@@ -49,16 +56,34 @@ class Player
         // stop the simulation if not yet out of money.
     }
 
+    public function getLastBet()
+    {
+        return $this->last_bet;
+    }
+
+    public function setLastBet($bet)
+    {
+        $this->last_bet = $bet;
+    }
+
     public function makeBet()
     {
-        // based on how much stake player has left
-        // and the strategy they are using
-        // and the pace they are playing
+        if ($this->player_won_on_previous_round === false && $this->first_go === false && $this->strategy->getName() == 'martingale') {
+            $this->current_bet = new \Roulette\Bets\Odds($this->stack->getDoubleAmount($this->last_bet->amount));
+            $this->setLastBet($this->current_bet);
+            return;
+        }
+        
+        $this->first_go = false;
 
-        $bet = new Bet($this->stack->getLargeAmount());
+        $this->current_bet = new \Roulette\Bets\Odds($this->stack->getLargeAmount());
 
-        $bet = new Bet(10);
-        return $bet->basic();
+        $this->setLastBet($this->current_bet);
+    }
+
+    public function playerWonOnPreviousRound($boolean)
+    {
+        $this->player_won_on_previous_round = (boolean) $boolean;
     }
 
     public function isActive()

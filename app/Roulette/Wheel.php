@@ -47,5 +47,13 @@ class Wheel
     public static function getNumber()
     {
         return array_rand(self::$number);
+
+    public static function getOddNumbers()
+    {
+        $odd_numbers = array_filter(self::$number, function($var) {
+            return ($var['value'] & 1);
+        });
+
+        return array_keys($odd_numbers);
     }
 }

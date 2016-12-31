@@ -67,6 +67,21 @@ class Stack
         $this->remaining_stack = ($this->remaining_stack + $amount);
     }
 
+    public function getDoubleAmount($amount)
+    {
+        $amount_doubled = $amount * 2;
+        
+        if ($amount_doubled > $this->getRemainingStack()) {
+            $amount_doubled = $this->getRemainingStack();
+        }
+
+        $this->updateRemainingStack($amount_doubled);
+
+        echo "doubling amount = " . $amount_doubled . "\n";
+
+        return $amount_doubled;
+    }
+
     private function updateRemainingStack($amount)
     {
         $this->remaining_stack = ($this->remaining_stack - $amount);

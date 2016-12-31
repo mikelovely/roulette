@@ -11,12 +11,26 @@ class Croupier
         return Wheel::getNumber();
     }
 
-    public function handleResult($number, $bets)
+    public function handleResult($spin_result, $players)
     {
-        // take the result of the spin ($number)
+        foreach ($players as $player) {
 
-        // get the bets from the players ($bets)
+            $player_round_win_status = false;
 
-        // dole out winnings if any
+            foreach ($player->current_bet->getBetData() as $bet_data) {
+
+                echo "remaining amount = " . $player->stack->getRemainingStack() . "\n";
+
+                if ($bet_data['bet_type'] == 'odds') {
+                    if (in_array($spin_result['value'], Wheel::getOddNumbers())) {
+                        $player_round_win_status = true;
+                        $player->stack->addToRemainingStack($bet_data['potential_win']);
+                    }
+                }
+
+                $player->playerWonOnPreviousRound($player_round_win_status);
+
+            }
+        }
     }
 }
