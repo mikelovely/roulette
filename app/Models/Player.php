@@ -65,7 +65,7 @@ class Player
     public function makeBet()
     {
         if ($this->player_won_on_previous_round === false && $this->first_go === false && $this->strategy->getName() == 'martingale') {
-            $this->current_bet = new \Roulette\Bets\Odds($this->stack->getDoubleAmount($this->last_bet->amount));
+            $this->current_bet = new \Roulette\Bets\Odds($this->stack->getDoubleAmount($this->last_bet->getAmount()));
             $this->setLastBet($this->current_bet);
             return;
         }
