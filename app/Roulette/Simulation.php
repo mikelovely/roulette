@@ -2,20 +2,16 @@
 
 namespace Roulette\Roulette;
 
-use Roulette\Models\Player;
 use Roulette\Roulette\Croupier;
-use Roulette\Roulette\Table;
 
 class Simulation
 {
     private $croupier;
-    private $table;
     private $players = [];
 
-    public function __construct(Croupier $croupier, Table $table, $players)
+    public function __construct(Croupier $croupier, $players)
     {
         $this->croupier = $croupier;
-        $this->table = $table;
         $this->players = $players;
     }
 

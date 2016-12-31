@@ -7,37 +7,20 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Roulette\Models\Player;
 use Roulette\Roulette\Croupier;
 use Roulette\Roulette\Simulation;
-use Roulette\Roulette\Table;
 
 class SimulationController
 {
     public function index(Request $request, Response $response)
     {
-        // to begin the simulation you need the following;
-        $croupier = new Croupier();
         // get a croupier
+        $croupier = new Croupier();
 
-        // ---------------------------- //
         // add players to the game
-
         $players = [];
+        $players[] = new Player('martingale', 100, 'cautious');
 
-        $players[] = new Player('none', 100, 'cautious');
-
-        /* add more players */
-
-        // ---------------------------- //
-        // add the table
-
-        $table = new Table();
-        $table->collateBets();
-
-        // ---------------------------- //
-        // run the simulation
-
-        $simulation = new Simulation($croupier, $table, $players);
+        // run simulation
+        $simulation = new Simulation($croupier, $players);
         $simulation->run();
-
-        // ---------------------------- //
     }
 }

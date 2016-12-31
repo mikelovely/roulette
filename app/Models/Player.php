@@ -7,13 +7,14 @@ use Roulette\Roulette\Stack;
 
 class Player
 {
-    private $strategy;
-    private $style;
     public $stack;
-    private $id;
-    private $player_won_on_previous_round;
     public $current_bet;
     public $last_bet;
+    
+    private $strategy;
+    private $style;
+    private $id;
+    private $player_won_on_previous_round;
 
     public function __construct($strategy, $amount, $style)
     {
