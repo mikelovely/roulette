@@ -19,12 +19,16 @@ class Croupier
 
             foreach ($player->current_bet->getBetData() as $bet_data) {
 
-                echo "player bet - " . $bet_data['amount'] . ". remaining amount - " . $player->stack->getRemainingStack() . "\n";
-
                 if ($bet_data['bet_type'] == 'odds') {
                     if (in_array($spin_result['value'], Wheel::getOddNumbers())) {
                         $player_round_win_status = true;
-                        echo "player wins! - " . $bet_data['potential_win'] . "\n";
+                        $player->stack->addToRemainingStack($bet_data['potential_win']);
+                    }
+                }
+
+                if ($bet_data['bet_type'] == 'evens') {
+                    if (in_array($spin_result['value'], Wheel::getEvenNumbers())) {
+                        $player_round_win_status = true;
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }
                 }
@@ -32,16 +36,12 @@ class Croupier
                 if ($bet_data['bet_type'] == 'straight_up') {
                     if ($spin_result['value'] == $bet_data['number']) {
                         $player_round_win_status = true;
-                        echo "player wins! - " . $bet_data['potential_win'] . "\n";
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }
                 }
 
-                $player->playerWonOnPreviousRound($player_round_win_status);
-
+                $player->previousRoundResults($player_round_win_status, $bet_data['bet_type']);
             }
-
-            echo "\n\n";
         }
     }
 }
