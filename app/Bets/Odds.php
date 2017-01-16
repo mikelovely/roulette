@@ -3,9 +3,13 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
+use Roulette\Interfaces\Doublable as DoublableInterface;
+use Roulette\Traits\Doublable as DoublableTrait;
 
-class Odds extends Bet
+class Odds extends Bet implements DoublableInterface
 {
+    use DoublableTrait;
+
     private $amount;
 
     public function __construct($amount)
