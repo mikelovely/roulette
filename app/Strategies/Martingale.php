@@ -2,17 +2,10 @@
 
 namespace Roulette\Strategies;
 
-class Martingale
+use Roulette\Traits\Doublable as DoublableTrait;
+use Roulette\Interfaces\Doublable as DoublableInterface;
+
+class Martingale implements DoublableInterface
 {
-    private $name;
-
-    public function __construct()
-    {
-        $this->name = 'martingale';
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
+    use DoublableTrait;
 }
