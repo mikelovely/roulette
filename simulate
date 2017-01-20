@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+
+require 'vendor/autoload.php';
+
+$application = new Application();
+
+// register your commands
+$application->add(new Roulette\Commands\SimulateCommand);
+
+// run the application (to run the command)
+$application->run();
