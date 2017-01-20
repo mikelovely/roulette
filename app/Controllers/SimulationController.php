@@ -10,7 +10,7 @@ use Roulette\Roulette\Simulation;
 
 class SimulationController
 {
-    public function index(Request $request, Response $response)
+    public function index(Request $request = null, Response $response = null)
     {
         // get a croupier
         $croupier = new Croupier();
