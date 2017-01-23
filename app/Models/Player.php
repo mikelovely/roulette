@@ -16,7 +16,6 @@ class Player
     private $style;
     private $id;
     private $player_won_on_previous_round;
-    private $previous_round_bet_type;
     private $bet_type;
     private $out_of_game;
 
@@ -94,10 +93,9 @@ class Player
         $this->setLastBet($this->current_bet);
     }
 
-    public function previousRoundResults($boolean, $bet)
+    public function previousRoundResults($boolean)
     {
         $this->player_won_on_previous_round = (boolean) $boolean;
-        $this->previous_round_bet_type = $bet;
     }
 
     public function isActive()
