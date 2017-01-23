@@ -3,9 +3,10 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
+use Roulette\Interfaces\Straight as StraightInterface;
 use Roulette\Roulette\Wheel;
 
-class StraightUp extends Bet
+class StraightUp extends Bet implements StraightInterface
 {
     private $amount;
 
@@ -36,7 +37,6 @@ class StraightUp extends Bet
                 $a[] = [
                     'potential_win' => $value * 36,
                     'number' => rand(0, 36),
-                    'bet_type' => 'straight_up',
                 ];
             }
         }

@@ -3,6 +3,8 @@
 namespace Roulette\Roulette;
 
 use Roulette\Roulette\Wheel;
+use Roulette\Interfaces\Split;
+use Roulette\Interfaces\Straight;
 
 class Croupier
 {
@@ -19,21 +21,21 @@ class Croupier
 
             foreach ($player->current_bet->getBetData() as $bet_data) {
 
-                if (get_class($player->current_bet) instanceof Split) {
+                if ($player->current_bet instanceof Split) {
                     if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
                         $player_round_win_status = true;
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }
                 }
 
-                if ($bet_data['bet_type'] == 'straight_up') {
+                if ($player->current_bet instanceof Straight) {
                     if ($spin_result['value'] == $bet_data['number']) {
                         $player_round_win_status = true;
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }
                 }
 
-                $player->previousRoundResults($player_round_win_status, $bet_data['bet_type']);
+                $player->previousRoundResults($player_round_win_status);
             }
         }
     }
