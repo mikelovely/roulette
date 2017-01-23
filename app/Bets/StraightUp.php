@@ -3,6 +3,7 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
+use Roulette\Roulette\Wheel;
 
 class StraightUp extends Bet
 {
@@ -22,16 +23,32 @@ class StraightUp extends Bet
     {
         $a = [];
 
-        foreach ($this->setSpread() as $key => $value) {
-            $a[] = [
-                'amount' => $value,
-                'potential_win' => $value * 36,
-                'number' => rand(0, 36),
-                'bet_type' => 'straight_up',
-            ];
+        if (rand(1,4) == 1) {
+            foreach ($this->setNeighbourSpread() as $key => $value) {
+                $a[] = [
+                    'potential_win' => $value['value'] * 36,
+                    'number' => rand(0, 36),
+                    'bet_type' => 'straight_up',
+                ];
+            }
+        } else {
+            foreach ($this->setSpread() as $key => $value) {
+                $a[] = [
+                    'potential_win' => $value * 36,
+                    'number' => rand(0, 36),
+                    'bet_type' => 'straight_up',
+                ];
+            }
         }
 
         return $a;
+    }
+
+    private function setNeighbourSpread()
+    {
+        $number = rand(0, 36);
+
+        return Wheel::getNeighbours($number);
     }
 
     private function setSpread()
