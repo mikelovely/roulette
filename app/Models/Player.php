@@ -11,7 +11,6 @@ class Player
     public $stack;
     public $current_bet;
     public $last_bet;
-    
     private $strategy;
     private $style;
     private $id;
@@ -22,19 +21,12 @@ class Player
     public function __construct($strategy, $amount, $style)
     {
         $this->out_of_game = false;
-
         $this->player_won_on_previous_round = false;
-
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
-
         $this->setStrategy($strategy);
-
         $this->setStyle($style);
-
         $this->setBetType();
-
         $this->stack = new Stack($amount);
-
         $this->first_go = true;
     }
 
@@ -85,11 +77,8 @@ class Player
         }
         
         $this->first_go = false;
-
         $class = "Roulette\\Bets\\" . ucfirst($this->bet_type);
-
         $this->current_bet = new $class($this->stack->getAmount($this->style));
-
         $this->setLastBet($this->current_bet);
     }
 

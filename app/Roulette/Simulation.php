@@ -24,19 +24,15 @@ class Simulation
     {
         do {
             $continue = false;
-            $i = 1;
 
             // do this each round to determine who is still able to play
             // (which players still have money)
             foreach ($this->players as $player) {
                 if ($player->isActive()) {
-                    echo $i++ . "\n";
                     $continue = true;
                     $player->makeBet();
                 }
             }
-
-            echo "\n";
 
             if ($continue) {
                 // number returned from a spin of the wheel
@@ -47,6 +43,6 @@ class Simulation
             }
         } while ($continue);
 
-        exit;
+        echo "betting ends" . "\n";
     }
 }

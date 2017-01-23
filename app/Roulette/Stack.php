@@ -25,9 +25,9 @@ class Stack
 
     public function getAmount($style)
     {
-        if ($style->getName() == "aggressive") {
+        if (get_class($style) == "Roulette\\Styles\\Aggressive") {
             $amount = (float) round(($this->initial_stack / 100) * rand(25, 40));
-        } elseif ($style->getName() == "cautious") {
+        } elseif (get_class($style) == "Roulette\\Styles\\Cautious") {
             $amount = (float) round(($this->initial_stack / 100) * rand(5, 20));
         }
 
