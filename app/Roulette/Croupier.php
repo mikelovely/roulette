@@ -19,15 +19,8 @@ class Croupier
 
             foreach ($player->current_bet->getBetData() as $bet_data) {
 
-                if ($bet_data['bet_type'] == 'odds') {
-                    if (in_array($spin_result['value'], Wheel::getOddNumbers())) {
-                        $player_round_win_status = true;
-                        $player->stack->addToRemainingStack($bet_data['potential_win']);
-                    }
-                }
-
-                if ($bet_data['bet_type'] == 'evens') {
-                    if (in_array($spin_result['value'], Wheel::getEvenNumbers())) {
+                if (get_class($player->current_bet) instanceof Split) {
+                    if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
                         $player_round_win_status = true;
                         $player->stack->addToRemainingStack($bet_data['potential_win']);
                     }

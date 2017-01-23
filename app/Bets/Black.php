@@ -4,9 +4,11 @@ namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
 use Roulette\Interfaces\Doublable as DoublableInterface;
+use Roulette\Interfaces\Split as SplitInterface;
+use Roulette\Roulette\Wheel;
 use Roulette\Traits\Doublable as DoublableTrait;
 
-class Black extends Bet implements DoublableInterface
+class Black extends Bet implements DoublableInterface, SplitInterface
 {
     use DoublableTrait;
 
@@ -30,5 +32,10 @@ class Black extends Bet implements DoublableInterface
                 'bet_type' => 'black',
             ],
         ];
+    }
+
+    public function winningNumbers()
+    {
+        return Wheel::getBlackNumbers();
     }
 }
