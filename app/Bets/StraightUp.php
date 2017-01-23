@@ -23,13 +23,11 @@ class StraightUp extends Bet implements StraightInterface
     public function getBetData()
     {
         $a = [];
-
-        if (rand(1,4) == 1) {
+        if (rand(1,3) == 1 && $this->amount % 5 == 0) {
             foreach ($this->setNeighbourSpread() as $key => $value) {
                 $a[] = [
-                    'potential_win' => $value['value'] * 36,
-                    'number' => rand(0, 36),
-                    'bet_type' => 'straight_up',
+                    'potential_win' => ($this->amount / 5) * 36,
+                    'number' => $value['value'],
                 ];
             }
         } else {
