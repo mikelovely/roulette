@@ -8,25 +8,13 @@ use Roulette\Roulette\Wheel;
 
 class StraightUp extends Bet implements StraightInterface
 {
-    private $amount;
-
-    public function __construct($amount)
-    {
-        $this->amount = $amount;
-    }
-
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
     public function getBetData()
     {
         $a = [];
-        if (rand(1,3) == 1 && $this->amount % 5 == 0) {
+        if (rand(1,3) == 1 && $this->getAmount() % 5 == 0) {
             foreach ($this->setNeighbourSpread() as $key => $value) {
                 $a[] = [
-                    'potential_win' => ($this->amount / 5) * 36,
+                    'potential_win' => ($this->getAmount() / 5) * 36,
                     'number' => $value['value'],
                 ];
             }
@@ -55,8 +43,8 @@ class StraightUp extends Bet implements StraightInterface
         $groups = [];
         $group = 0;
 
-        while(array_sum($groups) != $this->amount) {
-            $groups[$group] = rand(1, $this->amount);
+        while(array_sum($groups) != $this->getAmount()) {
+            $groups[$group] = rand(1, $this->getAmount());
             if(++$group == $number_of_groups) {
                 $group = 0;
             }
