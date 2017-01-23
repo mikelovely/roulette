@@ -125,8 +125,8 @@ class Player
     {
         if ($this->strategy instanceOf Doublable) {
             $array = [
-                // 'red',
-                // 'black',
+                'red',
+                'black',
                 'odds',
                 'evens',
             ];

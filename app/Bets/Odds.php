@@ -26,7 +26,6 @@ class Odds extends Bet implements DoublableInterface
     {
         return [
             0 => [
-                'amount' => $this->amount,
                 'potential_win' => 2 * $this->amount,
                 'bet_type' => 'odds',
             ],
