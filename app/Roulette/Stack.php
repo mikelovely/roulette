@@ -6,11 +6,13 @@ class Stack
 {
     private $initial_stack;
     private $remaining_stack;
+    private $style;
 
-    public function __construct($amount)
+    public function __construct($amount, $style)
     {
         $this->initial_stack = $amount;
         $this->remaining_stack = $amount;
+        $this->style = $style;
     }
 
     public function getInitialStack()
@@ -23,11 +25,11 @@ class Stack
         return $this->remaining_stack;
     }
 
-    public function getAmount($style)
+    public function getAmount()
     {
-        if (get_class($style) == "Roulette\\Styles\\Aggressive") {
+        if (get_class($this->style) == "Roulette\\Styles\\Aggressive") {
             $amount = (float) round(($this->initial_stack / 100) * rand(25, 40));
-        } elseif (get_class($style) == "Roulette\\Styles\\Cautious") {
+        } elseif (get_class($this->style) == "Roulette\\Styles\\Cautious") {
             $amount = (float) round(($this->initial_stack / 100) * rand(5, 20));
         }
 

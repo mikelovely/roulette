@@ -26,7 +26,7 @@ class Player
         $this->setStrategy($strategy);
         $this->setStyle($style);
         $this->setBetType();
-        $this->stack = new Stack($amount);
+        $this->stack = new Stack($amount, $this->style);
         $this->first_go = true;
     }
 
@@ -78,7 +78,7 @@ class Player
         
         $this->first_go = false;
         $class = "Roulette\\Bets\\" . ucfirst($this->bet_type);
-        $this->current_bet = new $class($this->stack->getAmount($this->style));
+        $this->current_bet = new $class($this->stack->getAmount());
         $this->setLastBet($this->current_bet);
     }
 

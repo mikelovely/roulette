@@ -6,7 +6,7 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->player = new \Roulette\Models\Player('basic', 100);
+        $this->player = new \Roulette\Models\Player('none', 100, 'cautious');
     }
 
     /** @test */
@@ -18,20 +18,20 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function that_player_is_active_whilst_they_still_have_money()
     {
-        $this->player->updateStake(-5);
+        $this->player->stack->getAmount();
         $this->assertTrue($this->player->isActive());
     }
 
     /** @test */
     public function that_player_is_not_active_when_they_have_no_more_money_to_play_with()
     {
-        $this->player->updateStake(-100);
+        $this->player->stack->getAmount();
         $this->assertFalse($this->player->isActive());
     }
 
     /** @test */
     public function strategy_is_set_for_player()
     {
-        $this->assertInstanceOf(Roulette\Models\Strategies\Basic::class, $this->player->getStrategy());
+        $this->assertInstanceOf(Roulette\Strategies\None::class, $this->player->getStrategy());
     }
 }
