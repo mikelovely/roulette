@@ -1,6 +1,6 @@
 <?php
 
-namespace Roulette\Models;
+namespace Roulette\Players;
 
 use Roulette\Roulette\Bet;
 use Roulette\Roulette\Stack;
