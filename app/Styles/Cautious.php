@@ -2,7 +2,9 @@
 
 namespace Roulette\Styles;
 
-class Cautious
+use Roulette\Interfaces\Style;
+
+class Cautious implements Style
 {
     
 }

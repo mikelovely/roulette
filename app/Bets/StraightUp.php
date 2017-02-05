@@ -26,7 +26,7 @@ class StraightUp extends Bet implements StraightInterface
                 ];
             }
         }
-
+        var_dump($a);
         return $a;
     }
 

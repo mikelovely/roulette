@@ -5,6 +5,7 @@ namespace Roulette\Players;
 use Roulette\Roulette\Bet;
 use Roulette\Roulette\Stack;
 use Roulette\Interfaces\Doublable;
+use Roulette\Interfaces\Strategy;
 
 class Player
 {
@@ -18,12 +19,12 @@ class Player
     private $bet_type;
     private $out_of_game;
 
-    public function __construct($strategy, $amount, $style)
+    public function __construct(Strategy $strategy, $amount, $style)
     {
         $this->out_of_game = false;
         $this->player_won_on_previous_round = false;
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
-        $this->setStrategy($strategy);
+        $this->strategy = $strategy;
         $this->setStyle($style);
         $this->setBetType();
         $this->stack = new Stack($amount, $this->style);
@@ -64,21 +65,12 @@ class Player
 
     public function makeBet()
     {
-        if (
-            $this->player_won_on_previous_round === false &&
-            $this->first_go === false &&
-            $this->strategy instanceOf Doublable &&
-            $this->getLastBet() instanceOf Doublable
-        ) {
-            $class = get_class($this->getLastBet());
-            $this->current_bet = new $class($this->stack->getDoubleAmount($this->last_bet->getAmount()));
-            $this->setLastBet($this->current_bet);
-            return;
-        }
-        
-        $this->first_go = false;
-        $class = "Roulette\\Bets\\" . ucfirst($this->bet_type);
-        $this->current_bet = new $class($this->stack->getAmount());
+        $this->current_bet = $this->strategy->makeBet(
+            $this->first_go,
+            $this->player_won_on_previous_round,
+            $this->last_bet->getAmount()
+        );
+
         $this->setLastBet($this->current_bet);
     }
 

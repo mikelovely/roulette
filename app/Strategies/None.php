@@ -2,7 +2,12 @@
 
 namespace Roulette\Strategies;
 
-class None
+use Roulette\Interfaces\Strategy;
+
+class None implements Strategy
 {
-    
+    public function makeBet(bool $firstGo, int $lastBet)
+    {
+        $this->stack->getAmount();
+    }
 }
