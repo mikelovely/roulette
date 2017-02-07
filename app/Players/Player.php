@@ -5,8 +5,8 @@ namespace Roulette\Players;
 use Roulette\Players\Stack;
 use Roulette\Interfaces\Strategy;
 use Roulette\Interfaces\Style;
-use Roulette\Interfaces\Split;
-use Roulette\Interfaces\Straight;
+use Roulette\Interfaces\Strategies\Splitter;
+use Roulette\Interfaces\Strategies\Standard;
 
 class Player
 {
@@ -79,7 +79,7 @@ class Player
 
     public function setBetType()
     {
-        if ($this->strategy instanceOf Split) {
+        if ($this->strategy instanceOf Splitter) {
             $array = [
                 'red',
                 'black',
@@ -88,7 +88,7 @@ class Player
             ];
             $k = array_rand($array);
             $bet = $array[$k];
-        } elseif ($this->strategy instanceOf Straight) {
+        } elseif ($this->strategy instanceOf Standard) {
             $bet = 'straightUp';
         }
 

@@ -3,5 +3,5 @@
 namespace Roulette\Interfaces;
 
 interface Split { 
-    // public function winningNumbers();
+    public function winningNumbers();
 }

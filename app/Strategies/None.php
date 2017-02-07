@@ -3,9 +3,9 @@
 namespace Roulette\Strategies;
 
 use Roulette\Interfaces\Strategy;
-use Roulette\Interfaces\Straight;
+use Roulette\Interfaces\Strategies\Standard;
 
-class None implements Strategy, Straight
+class None implements Strategy, Standard
 {
     public function makeBet($firstGo, $playerWonOnPreviousRound, $lastBet, $playersStack)
     {

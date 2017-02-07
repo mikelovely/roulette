@@ -3,9 +3,9 @@
 namespace Roulette\Strategies;
 
 use Roulette\Interfaces\Strategy;
-use Roulette\Interfaces\Split;
+use Roulette\Interfaces\Strategies\Splitter;
 
-class Martingale implements Strategy, Split
+class Martingale implements Strategy, Splitter
 {
     public function makeBet($firstGo, $playerWonOnPreviousRound, $lastBet, $playersStack)
     {
