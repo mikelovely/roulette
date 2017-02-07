@@ -6,6 +6,7 @@ use Roulette\Roulette\Bet;
 use Roulette\Roulette\Stack;
 use Roulette\Interfaces\Doublable;
 use Roulette\Interfaces\Strategy;
+use Roulette\Interfaces\Style;
 use Roulette\Interfaces\Split;
 
 class Player
@@ -20,13 +21,13 @@ class Player
     private $bet_type;
     private $out_of_game;
 
-    public function __construct(Strategy $strategy, $amount, $style)
+    public function __construct(Strategy $strategy, $amount, Style $style)
     {
         $this->out_of_game = false;
         $this->player_won_on_previous_round = false;
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
         $this->strategy = $strategy;
-        $this->setStyle($style);
+        $this->style = $style;
         $this->setBetType();
         $this->stack = new Stack($amount, $this->style);
         $this->first_go = true;

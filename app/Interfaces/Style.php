@@ -2,5 +2,6 @@
 
 namespace Roulette\Interfaces;
 
-interface Style { 
+interface Style {
+    public function getAmount($initialStack);
 }

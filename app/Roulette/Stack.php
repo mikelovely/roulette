@@ -27,15 +27,9 @@ class Stack
 
     public function getAmount()
     {
-        if (get_class($this->style) == "Roulette\\Styles\\Aggressive") {
-            $amount = (float) round(($this->initial_stack / 100) * rand(25, 40));
-        } elseif (get_class($this->style) == "Roulette\\Styles\\Cautious") {
-            $amount = (float) round(($this->initial_stack / 100) * rand(5, 20));
-        }
-
-        if ($amount > $this->getRemainingStack()) {
-            $amount = $this->getRemainingStack();
-        }
+        $amount = $this->style->getAmount(
+            $this->initial_stack
+        );
 
         $this->updateRemainingStack($amount);
 
@@ -50,10 +44,6 @@ class Stack
     public function getDoubleAmount($amount)
     {
         $amount_doubled = $amount * 2;
-        
-        if ($amount_doubled > $this->getRemainingStack()) {
-            $amount_doubled = $this->getRemainingStack();
-        }
 
         $this->updateRemainingStack($amount_doubled);
 
@@ -62,6 +52,9 @@ class Stack
 
     private function updateRemainingStack($amount)
     {
-        $this->remaining_stack = ($this->remaining_stack - $amount);
+        // player cannot bet more than the amount of chips they have left
+        $amt = ($amount > $this->getRemainingStack()) ? $this->getRemainingStack() : $amount;
+
+        $this->remaining_stack = ($this->remaining_stack - $amt);
     }
 }
