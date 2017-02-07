@@ -1,6 +1,6 @@
 <?php
 
-namespace Roulette\Roulette;
+namespace Roulette\Players;
 
 class Stack
 {

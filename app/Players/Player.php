@@ -3,7 +3,7 @@
 namespace Roulette\Players;
 
 use Roulette\Roulette\Bet;
-use Roulette\Roulette\Stack;
+use Roulette\Players\Stack;
 use Roulette\Interfaces\Doublable;
 use Roulette\Interfaces\Strategy;
 use Roulette\Interfaces\Style;
