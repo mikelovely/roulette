@@ -6,6 +6,7 @@ use Roulette\Roulette\Bet;
 use Roulette\Roulette\Stack;
 use Roulette\Interfaces\Doublable;
 use Roulette\Interfaces\Strategy;
+use Roulette\Interfaces\Split;
 
 class Player
 {
@@ -36,17 +37,6 @@ class Player
         return $this->id;
     }
 
-    public function setStrategy($strategy)
-    {
-        $class = "Roulette\\Strategies\\" . ucfirst($strategy);
-        $this->strategy = new $class();
-    }
-
-    public function getStrategy()
-    {
-        return $this->strategy;
-    }
-
     public function setStyle($style)
     {
         $class = "Roulette\\Styles\\" . ucfirst($style);
@@ -65,10 +55,15 @@ class Player
 
     public function makeBet()
     {
-        $this->current_bet = $this->strategy->makeBet(
-            $this->first_go,
-            $this->player_won_on_previous_round,
-            $this->last_bet->getAmount()
+        $class = "Roulette\\Bets\\" . ucfirst($this->bet_type);
+
+        $this->current_bet = new $class(
+            $this->strategy->makeBet(
+                $this->first_go,
+                $this->player_won_on_previous_round,
+                $this->last_bet,
+                $this->stack
+            )
         );
 
         $this->setLastBet($this->current_bet);
@@ -102,7 +97,7 @@ class Player
 
     public function setBetType()
     {
-        if ($this->strategy instanceOf Doublable) {
+        if ($this->strategy instanceOf Split) {
             $array = [
                 'red',
                 'black',

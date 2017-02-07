@@ -6,8 +6,8 @@ use Roulette\Interfaces\Strategy;
 
 class None implements Strategy
 {
-    public function makeBet(bool $firstGo, int $lastBet)
+    public function makeBet($firstGo, $playerWonOnPreviousRound, $lastBet, $playersStack)
     {
-        $this->stack->getAmount();
+        return $playersStack->getAmount();
     }
 }

@@ -4,5 +4,5 @@ namespace Roulette\Interfaces;
 
 interface Strategy
 {
-    public function makeBet(bool $firstGo, int $lastBet);
+    public function makeBet($firstGo, $playerWonOnPreviousRound, $lastBet, $playersStack);
 }
