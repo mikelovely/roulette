@@ -90,35 +90,6 @@ class Wheel
         // get the key
         $key = array_search($number, array_column(self::$number, 'value'));
 
-        $output = []
-        $output[] = $numbers[$key]->value;
-
-        switch ($key) {
-            case 0:
-                $output[] = $numbers[36]
-                $output[] = $numbers[35]
-                $output[] = $numbers[$key+1]
-                $output[] = $numbers[$key+2]
-            case 1:
-                $output[] = $numbers[36]
-                $output[] = $numbers[0]
-                $output[] = $numbers[$key+1]
-                $output[] = $numbers[$key+2]
-            case 35:
-
-            case 35:
-
-            default:
-            $output[] = $numbers[$key-2]->value
-                $output[] = $numbers[$key-2]->value
-                $output[] = $numbers[$key+1]->value
-                $output[] = $numbers[$key+2]->value
-        }
-        if $key < 2 {
-            if ($key == 1)
-            $key , $key +1, $key +2, 
-        }
-
         // determine range of keys
         $range = range($key - 2, $key + 2);
         $output = [];
