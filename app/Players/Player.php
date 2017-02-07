@@ -20,17 +20,18 @@ class Player
     private $player_won_on_previous_round;
     private $bet_type;
     private $out_of_game;
+    private $first_go;
+
+    use Data;
 
     public function __construct(Strategy $strategy, $amount, Style $style)
     {
-        $this->out_of_game = false;
-        $this->player_won_on_previous_round = false;
         $this->id = (string) "id_" . bin2hex(random_bytes(15));
+        $this->setInitialVariables();
         $this->strategy = $strategy;
         $this->style = $style;
         $this->setBetType();
         $this->stack = new Stack($amount, $this->style);
-        $this->first_go = true;
     }
 
     public function getId()
