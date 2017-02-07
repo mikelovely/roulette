@@ -14,7 +14,7 @@ class Martingale implements Strategy, Split
             $playerWonOnPreviousRound === false &&
             is_null($lastBet) === false
         ) {
-            return $playersStack->getDoubleAmount($lastBet);
+            return $playersStack->getDoubleAmount($lastBet->getAmount());
         }
 
         return $playersStack->getAmount();

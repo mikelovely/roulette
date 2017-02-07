@@ -9,7 +9,6 @@ use Roulette\Roulette\Croupier;
 use Roulette\Roulette\Simulation;
 use Roulette\Strategies\Martingale;
 use Roulette\Strategies\None;
-
 use Roulette\Styles\Cautious;
 use Roulette\Styles\Aggressive;
 
