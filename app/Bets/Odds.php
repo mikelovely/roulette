@@ -3,15 +3,11 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
-use Roulette\Interfaces\Doublable as DoublableInterface;
-use Roulette\Interfaces\Split as SplitInterface;
+use Roulette\Interfaces\Split;
 use Roulette\Roulette\Wheel;
-use Roulette\Traits\Doublable as DoublableTrait;
 
-class Odds extends Bet implements DoublableInterface, SplitInterface
+class Odds extends Bet implements Split
 {
-    use DoublableTrait;
-
     public function getBetData()
     {
         return [

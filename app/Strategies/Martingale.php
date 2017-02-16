@@ -2,10 +2,21 @@
 
 namespace Roulette\Strategies;
 
-use Roulette\Traits\Doublable as DoublableTrait;
-use Roulette\Interfaces\Doublable as DoublableInterface;
+use Roulette\Interfaces\Strategy;
+use Roulette\Interfaces\Strategies\Splitter;
 
-class Martingale implements DoublableInterface
+class Martingale implements Strategy, Splitter
 {
-    use DoublableTrait;
+    public function makeBet($firstGo, $playerWonOnPreviousRound, $lastBet, $playersStack)
+    {
+        if (
+            $firstGo === false &&
+            $playerWonOnPreviousRound === false &&
+            is_null($lastBet) === false
+        ) {
+            return $playersStack->getDoubleAmount($lastBet->getAmount());
+        }
+
+        return $playersStack->getAmount();
+    }
 }
