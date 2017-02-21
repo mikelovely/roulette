@@ -1,6 +1,8 @@
 <?php
 
-class PlayerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PlayerTest extends TestCase
 {
     protected $player;
 

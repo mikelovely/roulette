@@ -2,7 +2,7 @@
     "require": {
         "slim/slim": "^3.0",
         "php-di/slim-bridge": "^1.0",
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "^6.0",
         "symfony/console": "^3.2",
         "fzaninotto/faker": "^1.6"
     },
