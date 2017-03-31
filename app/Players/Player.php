@@ -16,7 +16,7 @@ class Player
     private $last_bet;
     private $strategy;
     private $style;
-    private $id;
+    private $name;
     private $player_won_on_previous_round;
     private $bet_type;
     private $out_of_game;
@@ -26,7 +26,8 @@ class Player
 
     public function __construct(Strategy $strategy, $amount, Style $style)
     {
-        $this->id = (string) "id_" . bin2hex(random_bytes(15));
+        $faker = \Faker\Factory::create();
+        $this->name = $faker->firstName() . " " . $faker->lastName;
         $this->setInitialVariables();
         $this->strategy = $strategy;
         $this->style = $style;
@@ -63,13 +64,13 @@ class Player
         }
 
         if ($this->stack->getRemainingStack() >= $this->stack->getInitialStack() * 5) {
-            echo "big win! player " . $this->id . " wins $" . $this->stack->getRemainingStack() . "\n";
+            echo "big win! " . $this->name . " wins $" . $this->stack->getRemainingStack() . "\n";
             $this->out_of_game = true;
             return false;
         }
 
         if ($this->stack->getRemainingStack() <= 0) {
-            echo "house wins, sorry buddy. player " . $this->id . " down to " . $this->stack->getRemainingStack() . "\n";
+            echo "house wins, sorry buddy. " . $this->name . " down to $" . $this->stack->getRemainingStack() . "\n";
             $this->out_of_game = true;
             return false;
         }
