@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use \Roulette\Roulette\Wheel;
 
-class WheelTest extends \PHPUnit_Framework_TestCase
+class WheelTest extends TestCase
 {
     /** @test */
     public function that_correct_neighbours_array_returns()
