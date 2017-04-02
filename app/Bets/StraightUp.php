@@ -43,9 +43,9 @@ class StraightUp extends Bet implements Straight
         $groups = [];
         $group = 0;
 
-        while(array_sum($groups) != $this->getAmount()) {
+        while (array_sum($groups) != $this->getAmount()) {
             $groups[$group] = rand(1, $this->getAmount());
-            if(++$group == $number_of_groups) {
+            if (++$group == $number_of_groups) {
                 $group = 0;
             }
         }
