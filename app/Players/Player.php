@@ -2,35 +2,36 @@
 
 namespace Roulette\Players;
 
-use Roulette\Players\Stack;
 use Roulette\Interfaces\Strategy;
 use Roulette\Interfaces\Style;
 
 class Player
 {
-    public $stack;
-    public $current_bet;
-
-    private $last_bet;
-    private $strategy;
-    private $style;
-    private $name;
-    private $player_won_on_previous_round;
-    private $bet_type;
     private $out_of_game;
+    private $player_won_on_previous_round;
     private $first_go;
+    private $name;
+    private $strategy;
+    public $stack;
+    private $style;
+    private $bet_type;
+    public $status;
+    public $current_bet;
+    private $last_bet;
 
-    use Data;
+    use Status;
 
-    public function __construct(Strategy $strategy, $amount, Style $style)
+    public function __construct(Strategy $strategy, Stack $stack, Style $style)
     {
+        $this->out_of_game = false;
+        $this->player_won_on_previous_round = false;
+        $this->first_go = true;
         $faker = \Faker\Factory::create();
         $this->name = $faker->firstName() . " " . $faker->lastName;
-        $this->setInitialVariables();
         $this->strategy = $strategy;
+        $this->stack = $stack;
         $this->style = $style;
         $this->setBetType();
-        $this->stack = new Stack($amount, $this->style);
     }
 
     public function makeBet()
@@ -56,19 +57,19 @@ class Player
     }
 
     public function isActive()
-    {   
+    {
         if ($this->out_of_game) {
             return false;
         }
 
         if ($this->stack->getRemainingStack() >= $this->stack->getInitialStack() * 5) {
-            echo "big win! " . $this->name . " wins $" . $this->stack->getRemainingStack() . "\n";
+            $this->setStatus("win");
             $this->out_of_game = true;
             return false;
         }
 
         if ($this->stack->getRemainingStack() <= 0) {
-            echo "house wins, sorry buddy. " . $this->name . " down to $" . $this->stack->getRemainingStack() . "\n";
+            $this->setStatus("lose");
             $this->out_of_game = true;
             return false;
         }

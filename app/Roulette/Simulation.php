@@ -31,6 +31,15 @@ class Simulation
                 if ($player->isActive()) {
                     $continue = true;
                     $player->makeBet();
+                } else {
+                    // couldn't think of a better place to output a players final status
+                    echo $player->getStatus() . "\n";
+
+                    // remove player from the simulation as we have no interest in them anymore. it should be the
+                    // final responsibility of the simulation to remove a player if he/she has no more money.
+                    if (($key = array_search($player, $this->players)) !== false) {
+                        unset($this->players[$key]);
+                    }
                 }
             }
 

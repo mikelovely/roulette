@@ -2,6 +2,7 @@
 
 namespace Roulette\Interfaces;
 
-interface Split { 
+interface Split {
+    public function getBetData();
     public function winningNumbers();
 }

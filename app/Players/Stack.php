@@ -2,13 +2,15 @@
 
 namespace Roulette\Players;
 
+use Roulette\Interfaces\Style;
+
 class Stack
 {
     private $initial_stack;
     private $remaining_stack;
     private $style;
 
-    public function __construct($amount, $style)
+    public function __construct($amount, Style $style)
     {
         $this->initial_stack = $amount;
         $this->remaining_stack = $amount;

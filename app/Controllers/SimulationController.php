@@ -5,6 +5,7 @@ namespace Roulette\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Roulette\Players\Player;
+use Roulette\Players\Stack;
 use Roulette\Roulette\Croupier;
 use Roulette\Roulette\Simulation;
 use Roulette\Strategies\Martingale;
@@ -16,8 +17,7 @@ class SimulationController
 {
     public function index(Request $request = null, Response $response = null)
     {
-        // get a croupier
-        $croupier = new Croupier();
+        $croupier = new Croupier;
 
         $martingale = new Martingale;
         $none = new None;
@@ -27,12 +27,14 @@ class SimulationController
 
         // add players to the game
         $players = [];
-        $players[] = new Player($martingale, 100, $cautious);
-        $players[] = new Player($martingale, 1000, $aggressive);
-        $players[] = new Player($none, 1000, $cautious);
-        $players[] = new Player($martingale, 100, $cautious);
-        $players[] = new Player($none, 10000, $aggressive);
-        $players[] = new Player($none, 1000, $cautious);
+
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
 
         // run simulation
         $simulation = new Simulation($croupier, $players);
