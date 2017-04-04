@@ -13,6 +13,9 @@ class Croupier
         return Wheel::getNumber();
     }
 
+    /**
+     * Public method to handle each player per rounds result (so after the wheel has spun)
+     */
     public function handleResult($spin_result, $players)
     {
         foreach ($players as $player) {
@@ -20,13 +23,19 @@ class Croupier
         }
     }
 
-    // once per player
+    /**
+     * Do this once per player. Compare the bet infoamtion.
+     */
     private function handlePlayer($spin_result, $player)
     {
         $player_round_win_status = false;
 
+        // Why is there more than one bet per player per round? That's how betting works in Roulette
+        // In real life, players will put different amounts on different numbers during a round
+        // It's not like the movies.
         foreach ($player->current_bet->getBetData() as $bet_data) {
 
+            // "even_money" means Red, Black, Odds or Evens
             if ($player->current_bet::BET_TYPE == "even_money") {
                 if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
                     $player_round_win_status = true;
@@ -34,6 +43,7 @@ class Croupier
                 }
             }
 
+            // "straight_up" means a bet on 36/1 odds.
             if ($player->current_bet::BET_TYPE == "straight_up") {
                 if ($spin_result['value'] == $bet_data['number']) {
                     $player_round_win_status = true;
@@ -42,6 +52,8 @@ class Croupier
             }
         }
 
+        // Need to know if the Player won on the previous round so they can "decide"
+        // to double their bet if they're playing Martingale strategy
         $player->previousRoundResults($player_round_win_status);
     }
 }

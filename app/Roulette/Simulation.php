@@ -25,17 +25,17 @@ class Simulation
         do {
             $continue = false;
 
-            // do this each round to determine who is still able to play
-            // (which players still have money)
+            // Do this each round to determine who is still able to play (still have money or limit not reached)
             foreach ($this->players as $player) {
                 if ($player->isActive()) {
                     $continue = true;
+                    // Player actually makes a bet
                     $player->makeBet();
                 } else {
-                    // couldn't think of a better place to output a players final status
+                    // I couldn't think of a better place to output a players final status
                     echo $player->getStatus() . "\n";
 
-                    // remove player from the simulation as we have no interest in them anymore. it should be the
+                    // Remove player from the simulation as we have no interest in them anymore. It should be the
                     // final responsibility of the simulation to remove a player if he/she has no more money.
                     if (($key = array_search($player, $this->players)) !== false) {
                         unset($this->players[$key]);
@@ -44,14 +44,14 @@ class Simulation
             }
 
             if ($continue) {
-                // number returned from a spin of the wheel
+                // Number returned from a spin of the wheel
                 $spin_result = $this->croupier->spin();
 
-                // bets are handled by the croupier along with the number spun
+                // Bets are handled by the croupier along with the number spun
                 $this->croupier->handleResult($spin_result, $this->players);
             }
         } while ($continue);
 
-        echo "betting ends" . "\n";
+        echo "Simulation has ended" . "\n";
     }
 }

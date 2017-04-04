@@ -15,17 +15,29 @@ use Roulette\Styles\Aggressive;
 
 class SimulationController
 {
+    /**
+     * This action is just an entry point to run the entire Simulation.
+     * This should work from both the command line using; `$ php simulate run:simulation` and
+     * also running from a browser or postman. eg http://localhost/simulate
+     */
     public function index(Request $request = null, Response $response = null)
     {
+        // Every simulation needs a Croupier to manage the whole Simulation
         $croupier = new Croupier;
 
+        // These are just re-usable Strategies. All Players need a Strategy - even a basic one like "None"
         $martingale = new Martingale;
         $none = new None;
 
+        // These are just re-usable Styles. This will determine how large a bet a PLayer will make
+        // as a percentage of their remaining cash (Stack)
         $cautious = new Cautious;
         $aggressive = new Aggressive;
 
-        // add players to the game
+        // Add players to the game here. You can add as many as you like but they need;
+        // - A playing Strategy
+        // - A Stack (passing in the amount the player wants to bet with)
+        // - A playing Style
         $players = [];
 
         $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
@@ -36,7 +48,7 @@ class SimulationController
         $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
         $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
 
-        // run simulation
+        // Run simulation
         $simulation = new Simulation($croupier, $players);
         $simulation->run();
     }

@@ -29,6 +29,8 @@ class Stack
 
     public function getAmount()
     {
+        // TODO - this is the only place style is used in this class and is
+        // the whole reason the Style class needs to be passed in in the SimulationController
         $amount = $this->style->getAmount(
             $this->initial_stack
         );
