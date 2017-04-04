@@ -2,9 +2,11 @@
 
 use PHPUnit\Framework\TestCase;
 
+use Roulette\Players\Player;
+use Roulette\Players\Stack;
+
 class PlayerTest extends TestCase
 {
-    protected $player;
     protected $none;
     protected $cautious;
 
@@ -14,15 +16,10 @@ class PlayerTest extends TestCase
         $this->cautious = new \Roulette\Styles\Cautious;
     }
 
-    public function setUp()
-    {
-        $this->player = new \Roulette\Players\Player($this->none, 100, $this->cautious);
-    }
-
     /** @test */
     public function that_player_is_active_whilst_they_still_have_money()
     {
-        $player = new \Roulette\Players\Player($this->none, 20, $this->cautious);
+        $player = new Player($this->none, new Stack(20, $this->cautious), $this->cautious);
 
         $this->assertTrue($player->isActive());
     }
@@ -30,7 +27,7 @@ class PlayerTest extends TestCase
     /** @test */
     public function that_player_is_not_active_when_they_have_no_more_money_to_play_with()
     {
-        $player = new \Roulette\Players\Player($this->none, 100, $this->cautious);
+        $player = new Player($this->none, new Stack(100, $this->cautious), $this->cautious);
 
         $player->stack->addToRemainingStack(1000);
 

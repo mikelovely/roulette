@@ -42,11 +42,11 @@ class SimulationController
 
         $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
         $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
         $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
         $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $aggressive);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
 
         // Run simulation
         $simulation = new Simulation($croupier, $players);

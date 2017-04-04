@@ -7,7 +7,6 @@ use Roulette\Styles\Interfaces\Style;
 
 class Player
 {
-    private $out_of_game;
     private $player_won_on_previous_round;
     private $first_go;
     private $name;
@@ -23,7 +22,6 @@ class Player
 
     public function __construct(Strategy $strategy, Stack $stack, Style $style)
     {
-        $this->out_of_game = false;
         $this->player_won_on_previous_round = false;
         $this->first_go = true;
         $faker = \Faker\Factory::create();
@@ -58,21 +56,15 @@ class Player
 
     public function isActive()
     {
-        if ($this->out_of_game) {
-            return false;
-        }
-
         // Player walks away if they have won their "Walk Away" amount (5 or 10 times initial buy-in)
         if ($this->stack->getRemainingStack() >= ($this->stack->getInitialStack() * $this->style::WALK_AWAY)) {
             $this->setStatus("win");
-            $this->out_of_game = true;
             return false;
         }
 
         // Player is out of the game if their remaining Stack is zero
         if ($this->stack->getRemainingStack() <= 0) {
             $this->setStatus("lose");
-            $this->out_of_game = true;
             return false;
         }
 
