@@ -1,6 +1,6 @@
 <?php
 
-namespace Roulette\Interfaces;
+namespace Roulette\Styles\Interfaces;
 
 interface Style {
     public function getAmount($initialStack);

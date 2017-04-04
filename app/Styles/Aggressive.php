@@ -2,7 +2,7 @@
 
 namespace Roulette\Styles;
 
-use Roulette\Interfaces\Style;
+use Roulette\Styles\Interfaces\Style;
 
 class Aggressive implements Style
 {

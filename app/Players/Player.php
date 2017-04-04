@@ -2,8 +2,8 @@
 
 namespace Roulette\Players;
 
-use Roulette\Interfaces\Strategy;
-use Roulette\Interfaces\Style;
+use Roulette\Strategies\Interfaces\Strategy;
+use Roulette\Styles\Interfaces\Style;
 
 class Player
 {

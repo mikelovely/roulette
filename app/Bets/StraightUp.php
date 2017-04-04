@@ -3,10 +3,10 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
-use Roulette\Interfaces\Straight;
+use Roulette\Bets\Interfaces\Bettable;
 use Roulette\Roulette\Wheel;
 
-class StraightUp extends Bet implements Straight
+class StraightUp extends Bet implements Bettable
 {
     public function getBetData()
     {

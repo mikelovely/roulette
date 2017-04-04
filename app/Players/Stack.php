@@ -2,7 +2,7 @@
 
 namespace Roulette\Players;
 
-use Roulette\Interfaces\Style;
+use Roulette\Styles\Interfaces\Style;
 
 class Stack
 {

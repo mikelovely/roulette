@@ -3,10 +3,10 @@
 namespace Roulette\Bets;
 
 use Roulette\Bets\Bet;
-use Roulette\Interfaces\Split;
+use Roulette\Bets\Interfaces\Bettable;
 use Roulette\Roulette\Wheel;
 
-class Black extends Bet implements Split
+class Black extends Bet implements Bettable
 {
     public function getBetData()
     {

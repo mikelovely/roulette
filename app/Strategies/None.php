@@ -2,7 +2,7 @@
 
 namespace Roulette\Strategies;
 
-use Roulette\Interfaces\Strategy;
+use Roulette\Strategies\Interfaces\Strategy;
 
 class None implements Strategy
 {
