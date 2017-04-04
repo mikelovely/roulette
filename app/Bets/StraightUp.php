@@ -8,6 +8,8 @@ use Roulette\Roulette\Wheel;
 
 class StraightUp extends Bet implements Bettable
 {
+    const BET_TYPE = 'straight_up';
+
     public function getBetData()
     {
         $a = [];

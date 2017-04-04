@@ -16,27 +16,32 @@ class Croupier
     public function handleResult($spin_result, $players)
     {
         foreach ($players as $player) {
+            $this->handlePlayer($spin_result, $player);
+        }
+    }
 
-            $player_round_win_status = false;
+    // once per player
+    private function handlePlayer($spin_result, $player)
+    {
+        $player_round_win_status = false;
 
-            foreach ($player->current_bet->getBetData() as $bet_data) {
+        foreach ($player->current_bet->getBetData() as $bet_data) {
 
-                if ($player->current_bet instanceof Split) {
-                    if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
-                        $player_round_win_status = true;
-                        $player->stack->addToRemainingStack($bet_data['potential_win']);
-                    }
+            if ($player->current_bet::BET_TYPE == "even_money") {
+                if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
+                    $player_round_win_status = true;
+                    $player->stack->addToRemainingStack($bet_data['potential_win']);
                 }
+            }
 
-                if ($player->current_bet instanceof Straight) {
-                    if ($spin_result['value'] == $bet_data['number']) {
-                        $player_round_win_status = true;
-                        $player->stack->addToRemainingStack($bet_data['potential_win']);
-                    }
+            if ($player->current_bet::BET_TYPE == "straight_up") {
+                if ($spin_result['value'] == $bet_data['number']) {
+                    $player_round_win_status = true;
+                    $player->stack->addToRemainingStack($bet_data['potential_win']);
                 }
-
-                $player->previousRoundResults($player_round_win_status);
             }
         }
+
+        $player->previousRoundResults($player_round_win_status);
     }
 }

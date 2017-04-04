@@ -8,6 +8,8 @@ use Roulette\Roulette\Wheel;
 
 class Odds extends Bet implements Bettable
 {
+    const BET_TYPE = 'even_money';
+
     public function getBetData()
     {
         return [
