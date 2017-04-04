@@ -62,7 +62,7 @@ class Player
             return false;
         }
 
-        if ($this->stack->getRemainingStack() >= $this->stack->getInitialStack() * 5) {
+        if ($this->stack->getRemainingStack() >= ($this->stack->getInitialStack() * $this->style::WALK_AWAY)) {
             $this->setStatus("win");
             $this->out_of_game = true;
             return false;
