@@ -77,7 +77,7 @@ class Player
         return true;
     }
 
-    public function setBetType()
+    private function setBetType()
     {
         if ($this->strategy::TYPE == "splitter") {
             $array = [
@@ -86,8 +86,7 @@ class Player
                 'odds',
                 'evens',
             ];
-            $k = array_rand($array);
-            $bet = $array[$k];
+            $bet = $array[array_rand($array)];
         } elseif ($this->strategy::TYPE == "standard") {
             $bet = 'straightUp';
         }
