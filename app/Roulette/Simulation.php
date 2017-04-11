@@ -8,11 +8,13 @@ class Simulation
 {
     private $croupier;
     private $players = [];
+    private $logger;
 
-    public function __construct(Croupier $croupier, $players)
+    public function __construct(Croupier $croupier, $players, $logger)
     {
         $this->croupier = $croupier;
         $this->players = $players;
+        $this->logger = $logger;
     }
 
     public function getPlayers()
@@ -30,6 +32,7 @@ class Simulation
                 if ($player->isActive()) {
                     $continue = true;
                     // Player actually makes a bet
+                    $this->logger->info("{$player->getName()} is making a bet.");
                     $player->makeBet();
                 } else {
                     // I couldn't think of a better place to output a players final status
@@ -38,6 +41,7 @@ class Simulation
                     // Remove player from the simulation as we have no interest in them anymore. It should be the
                     // final responsibility of the simulation to remove a player if he/she has no more money.
                     if (($key = array_search($player, $this->players)) !== false) {
+                        $this->logger->info("{$player->getName()} is being removed from simulation.");
                         unset($this->players[$key]);
                     }
                 }
@@ -52,6 +56,7 @@ class Simulation
             }
         } while ($continue);
 
+        $this->logger->info('Simulation has ended.');
         echo "Simulation has ended" . "\n";
     }
 }

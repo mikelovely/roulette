@@ -15,6 +15,13 @@ use Roulette\Styles\Aggressive;
 
 class SimulationController
 {
+    public $logger;
+
+    public function __construct($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * This action is just an entry point to run the entire Simulation.
      * This should work from both the command line using; `$ php simulate run:simulation` and
@@ -22,6 +29,8 @@ class SimulationController
      */
     public function index(Request $request = null, Response $response = null)
     {
+        $this->logger->info('Starting the simulation.');
+
         // Every simulation needs a Croupier to manage the whole Simulation
         $croupier = new Croupier;
 
@@ -49,7 +58,7 @@ class SimulationController
         $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
 
         // Run simulation
-        $simulation = new Simulation($croupier, $players);
+        $simulation = new Simulation($croupier, $players, $this->logger);
         $simulation->run();
     }
 }

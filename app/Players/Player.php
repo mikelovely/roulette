@@ -32,6 +32,11 @@ class Player
         $this->setBetType();
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function makeBet()
     {
         $class = "Roulette\\Bets\\" . ucfirst($this->bet_type);
