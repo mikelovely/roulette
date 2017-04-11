@@ -4,7 +4,8 @@
         "php-di/slim-bridge": "^1.0",
         "phpunit/phpunit": "^6.0",
         "symfony/console": "^3.2",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "monolog/monolog": "^1.22"
     },
     "autoload": {
         "psr-4": {
