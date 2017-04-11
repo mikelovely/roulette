@@ -3,9 +3,9 @@
 namespace Roulette\Console\Commands;
 
 use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 use Roulette\Console\Command;
 use Roulette\Controllers\SimulationController;
+use Roulette\Library\Adapters\Logger;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -2,7 +2,7 @@
 
 namespace Roulette\Controllers;
 
-use Monolog\Logger;
+use Roulette\Library\Adapters\Logger;
 
 abstract class Controller
 {
