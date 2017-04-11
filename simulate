@@ -1,14 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-use Symfony\Component\Console\Application;
+// anything from the container should be available here beause we're using the code from app.php
+require __DIR__ . '/bootstrap/app.php';
 
-require 'vendor/autoload.php';
+$kernel = new Roulette\Console\Kernel;
 
-$application = new Application();
+$console = new Roulette\Console\Console($app);
+$console->boot($kernel);
 
-// register your commands
-$application->add(new Roulette\Commands\SimulateCommand);
-
-// run the application (to run the command)
-$application->run();
+$console->run();
