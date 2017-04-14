@@ -2,7 +2,7 @@
 
 use Interop\Container\ContainerInterface;
 use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Roulette\Library\Adapters\Logger;
 
 return [
     Logger::class => function (ContainerInterface $c) {

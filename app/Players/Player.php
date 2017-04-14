@@ -2,6 +2,7 @@
 
 namespace Roulette\Players;
 
+use Roulette\Library\Adapters\Logger;
 use Roulette\Strategies\Interfaces\Strategy;
 use Roulette\Styles\Interfaces\Style;
 
@@ -17,10 +18,11 @@ class Player
     public $status;
     public $current_bet;
     private $last_bet;
+    private $logger;
 
     use Status;
 
-    public function __construct(Strategy $strategy, Stack $stack, Style $style)
+    public function __construct(Strategy $strategy, Stack $stack, Style $style, Logger $logger)
     {
         $this->player_won_on_previous_round = false;
         $this->first_go = true;
@@ -30,6 +32,7 @@ class Player
         $this->stack = $stack;
         $this->style = $style;
         $this->setBetType();
+        $this->logger = $logger;
     }
 
     public function getName()

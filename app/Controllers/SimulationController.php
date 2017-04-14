@@ -25,7 +25,7 @@ class SimulationController extends Controller
         $this->logger->info('Starting the simulation.');
 
         // Every simulation needs a Croupier to manage the whole Simulation
-        $croupier = new Croupier;
+        $croupier = new Croupier($this->logger);
 
         // These are just re-usable Strategies. All Players need a Strategy - even a basic one like "None"
         $martingale = new Martingale;
@@ -42,13 +42,13 @@ class SimulationController extends Controller
         // - A playing Style
         $players = [];
 
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
 
         // Run simulation
         $simulation = new Simulation($croupier, $players, $this->logger);

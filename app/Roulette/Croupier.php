@@ -5,9 +5,17 @@ namespace Roulette\Roulette;
 use Roulette\Roulette\Wheel;
 use Roulette\Interfaces\Split;
 use Roulette\Interfaces\Straight;
+use Roulette\Library\Adapters\Logger;
 
 class Croupier
 {
+    private $logger;
+
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function spin()
     {
         return Wheel::getNumber();
@@ -38,6 +46,7 @@ class Croupier
             // "even_money" means Red, Black, Odds or Evens
             if ($player->current_bet::BET_TYPE == "even_money") {
                 if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
+                    $this->logger->info("{$player->getName()} wins {$bet_data['potential_win']}.");
                     $player_round_win_status = true;
                     $player->stack->addToRemainingStack($bet_data['potential_win']);
                 }
@@ -46,6 +55,7 @@ class Croupier
             // "straight_up" means a bet on 36/1 odds.
             if ($player->current_bet::BET_TYPE == "straight_up") {
                 if ($spin_result['value'] == $bet_data['number']) {
+                    $this->logger->info("{$player->getName()} wins {$bet_data['potential_win']}.");
                     $player_round_win_status = true;
                     $player->stack->addToRemainingStack($bet_data['potential_win']);
                 }
