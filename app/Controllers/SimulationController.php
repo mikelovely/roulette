@@ -12,9 +12,15 @@ use Roulette\Strategies\Martingale;
 use Roulette\Strategies\None;
 use Roulette\Styles\Cautious;
 use Roulette\Styles\Aggressive;
+use Monolog\Logger;
 
 class SimulationController
 {
+    public function __construct(Logger $logger)
+    {
+
+    }
+
     /**
      * This action is just an entry point to run the entire Simulation.
      * This should work from both the command line using; `$ php simulate run:simulation` and
