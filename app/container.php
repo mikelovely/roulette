@@ -1,8 +1,8 @@
 <?php
 
 use Interop\Container\ContainerInterface;
-use Monolog\Handler\StreamHandler;
 use Roulette\Library\Adapters\Logger;
+use Roulette\Library\Adapters\StreamHandler;
 
 return [
     Logger::class => function (ContainerInterface $c) {
