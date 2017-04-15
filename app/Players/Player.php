@@ -66,13 +66,13 @@ class Player
     {
         // Player walks away if they have won their "Walk Away" amount (5 or 10 times initial buy-in)
         if ($this->stack->getRemainingStack() >= ($this->stack->getInitialStack() * $this->style::WALK_AWAY)) {
-            $this->setStatus("win");
+            $this->status("final.win.");
             return false;
         }
 
         // Player is out of the game if their remaining Stack is zero
         if ($this->stack->getRemainingStack() <= 0) {
-            $this->setStatus("lose");
+            $this->status("final.lose");
             return false;
         }
 
