@@ -13,7 +13,7 @@ use Roulette\Strategies\None;
 use Roulette\Styles\Cautious;
 use Roulette\Styles\Aggressive;
 
-class SimulationController
+class SimulationController extends Controller
 {
     /**
      * This action is just an entry point to run the entire Simulation.
@@ -22,8 +22,10 @@ class SimulationController
      */
     public function index(Request $request = null, Response $response = null)
     {
+        $this->logger->info('Starting the simulation.');
+
         // Every simulation needs a Croupier to manage the whole Simulation
-        $croupier = new Croupier;
+        $croupier = new Croupier($this->logger);
 
         // These are just re-usable Strategies. All Players need a Strategy - even a basic one like "None"
         $martingale = new Martingale;
@@ -40,16 +42,16 @@ class SimulationController
         // - A playing Style
         $players = [];
 
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
-        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious);
-        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
+        $players[] = new Player($martingale, new Stack(mt_rand(100, 1000), $cautious), $cautious, $this->logger);
+        $players[] = new Player($none, new Stack(mt_rand(100, 1000), $aggressive), $aggressive, $this->logger);
 
         // Run simulation
-        $simulation = new Simulation($croupier, $players);
+        $simulation = new Simulation($croupier, $players, $this->logger);
         $simulation->run();
     }
 }

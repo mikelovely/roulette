@@ -4,16 +4,20 @@ namespace Roulette\Players;
 
 trait Status
 {
-    public function setStatus($win_or_lose)
+    public function status($status)
     {
-        switch ($win_or_lose) {
-            case "win":
-                $this->status = "Win! " . $this->name . ". Initial buy-in: " . $this->stack->getInitialStack() . ". Final amount: " . $this->stack->getRemainingStack();
+        switch ($status) {
+            case "final.win":
+                $status = "{$this->getName()} has won. Initial buy-in: {$this->stack->getInitialStack()}. Final amount: {$this->stack->getRemainingStack()}";
                 break;
-            case "lose":
-                $this->status = "Lose! " . $this->name . ". Player lost: " . $this->stack->getInitialStack();
+            case "final.lose":
+                $status = "{$this->getName()} has lost. Player lost: {$this->stack->getInitialStack()}";
                 break;
         }
+
+        $this->status = $status;
+
+        $this->logger->info($status);
     }
 
     public function getStatus()
