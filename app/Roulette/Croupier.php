@@ -24,8 +24,10 @@ class Croupier
     /**
      * Public method to handle each player per rounds result (so after the wheel has spun)
      */
-    public function handleResult($spin_result, $players)
+    public function playRound($players)
     {
+        $spin_result = $this->spin();
+
         foreach ($players as $player) {
             $this->handlePlayer($spin_result, $player);
         }
