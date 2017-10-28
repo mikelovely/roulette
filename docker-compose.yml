@@ -1,0 +1,21 @@
+version: "3"
+services:
+    roulette-php-apache:
+        build:
+            context: ./ops/docker/roulette-php-apache
+        volumes:
+            - "./:/var/www/html"
+        ports:
+            - "8050:80"
+
+    roulette-database:
+        image: mysql:5.7
+        environment:
+            - "MYSQL_ROOT_PASSWORD=password"
+        ports:
+            - "33061:3306"
+
+    roulette-redis:
+        image: redis:3
+        ports:
+            - "63791:6379"
