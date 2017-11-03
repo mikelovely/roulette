@@ -1,12 +1,13 @@
 version: "3"
 services:
-    roulette-php-apache:
+    roulette-webserver:
         build:
-            context: ./ops/docker/roulette-php-apache
-        volumes:
-            - "./:/var/www/html"
+            context: .
         ports:
-            - "8050:80"
+            - "80:80"
+        volumes:
+            - "./ops/docker/php/xdebug.ini:/etc/php7/conf.d/02_xdebug.ini"
+            - ./:/opt/roulette/app
 
     roulette-database:
         image: mysql:5.7

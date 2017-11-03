@@ -1,15 +1,23 @@
 # Roulette Simulator
 ## Description
 This is a pretty basic Roulette simulator with the intend to practice my OOP and SOLID principles.
+This repo has now been enhanced to practice using Docker and Dockerfiles.
 
 ## To install
 ```
-composer install
+$ composer install
 ```
 
-## To run the simulation
+## To run the simulation from the command line
 ```
-php simulate run:simulation
+$ php simulate run:simulation
+```
+
+## To spin up Docker container
+```
+$ docker-compose down
+$ docker-compose build
+$ docker-compose up -d
 ```
 
 ## Adding Players
