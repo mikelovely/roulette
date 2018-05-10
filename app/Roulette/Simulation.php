@@ -45,11 +45,8 @@ class Simulation
             }
 
             if ($continue) {
-                // Number returned from a spin of the wheel
-                $spin_result = $this->croupier->spin();
-
                 // Bets are handled by the croupier along with the number spun
-                $this->croupier->handleResult($spin_result, $this->players);
+                $this->croupier->playRound($this->players);
             }
         } while ($continue);
 
