@@ -2,6 +2,9 @@
 
 namespace Roulette\Roulette;
 
+use Roulette\Bets\Handlers\EvenMoney;
+use Roulette\Bets\Handlers\StraightUp;
+use Roulette\Bets\Handlers\Exceptions\BetHandlerNotFoundException;
 use Roulette\Roulette\Wheel;
 use Roulette\Interfaces\Split;
 use Roulette\Interfaces\Straight;
@@ -24,8 +27,10 @@ class Croupier
     /**
      * Public method to handle each player per rounds result (so after the wheel has spun)
      */
-    public function handleResult($spin_result, $players)
+    public function playRound($players)
     {
+        $spin_result = $this->spin();
+
         foreach ($players as $player) {
             $this->handlePlayer($spin_result, $player);
         }
@@ -41,24 +46,29 @@ class Croupier
         // Why is there more than one bet per player per round? That's how betting works in Roulette
         // In real life, players will put different amounts on different numbers during a round
         // It's not like the movies.
+
+        // TODO: pass all data to a master handler instead??
         foreach ($player->current_bet->getBetData() as $bet_data) {
 
-            // "even_money" means Red, Black, Odds or Evens
-            if ($player->current_bet::BET_TYPE == "even_money") {
-                if (in_array($spin_result['value'], $player->current_bet->winningNumbers())) {
-                    $this->logger->info("{$player->getName()} wins {$bet_data['potential_win']}.");
-                    $player_round_win_status = true;
-                    $player->stack->addToRemainingStack($bet_data['potential_win']);
-                }
+            $betHandler = null;
+
+            switch ($player->current_bet::BET_TYPE) {
+                case "even_money":
+                    $betHandler = new EvenMoney($spin_result, $player, $bet_data, $this->logger);
+                    break;
+                case "straight_up":
+                    $betHandler = new StraightUp($spin_result, $player, $bet_data, $this->logger);
+                    break;
             }
 
-            // "straight_up" means a bet on 36/1 odds.
-            if ($player->current_bet::BET_TYPE == "straight_up") {
-                if ($spin_result['value'] == $bet_data['number']) {
-                    $this->logger->info("{$player->getName()} wins {$bet_data['potential_win']}.");
-                    $player_round_win_status = true;
-                    $player->stack->addToRemainingStack($bet_data['potential_win']);
-                }
+            if (!$betHandler) {
+                throw new BetHandlerNotFoundException("No bet handler found for " . $player->current_bet::BET_TYPE, 1);
+            }
+
+            $result = $betHandler->handle();
+
+            if ($result === true && $player_round_win_status === false) {
+                $player_round_win_status = true;
             }
         }
 
